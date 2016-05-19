@@ -1,4 +1,5 @@
 module Board where
+import Data.Maybe
 
 data Color = White | Black deriving (Show, Eq)
 data Figure = King | Pawn deriving (Show, Eq)
@@ -6,6 +7,7 @@ data ColoredFigure = ColoredFigure Color Figure deriving Eq
 type Field = Maybe ColoredFigure
 type Board = [[Field]]
 type Pos = (Int, Int)
+type Move = (Pos, Pos)
 
 instance Show ColoredFigure where
     show (ColoredFigure White King) = "W "
@@ -36,11 +38,38 @@ replaceNth n newVal (x:xs)
 
 
 placeFigure :: Board -> Pos -> Field -> Board
-placeFigure a (b,c) newField = replaceNth b (replaceNth c newField list) a where
-                list = a!!b
+placeFigure board (b,c) newField = replaceNth b (replaceNth c newField list) board where
+                list = board!!b
 
 deleteFigure :: Board -> Pos -> Board
-deleteFigure a b = placeFigure a b Nothing
+deleteFigure board b = placeFigure board b Nothing
+
+moveFigure :: Board->Move->Board
+moveFigure board (b,c) = placeFigure (deleteFigure board b) c field where
+        field = getField board b
+
+getColor :: ColoredFigure->Color
+getColor (ColoredFigure color _) = color
+
+
+getMoveOfColor :: Color->Pos->[Move]
+getMoveOfColor White (a,b) = [((a,b),(a-1,b-1)),((a,b),(a+1,b-1))]
+getMoveOfColor Black (a,b) = [((a,b),(a-1,b+1)),((a,b),(a+1,b+1))]
+
+possibleMoves :: Board->Color->Pos->[Move]
+possibleMoves board color (a,b) = case field of
+                                Nothing -> []
+                                (Just fig) -> if (color == figColor) then getMoveOfColor color (a,b) else []
+                                where
+                                field = getField board (a,b)
+                                figColor = getColor $ fromJust field
+
+isInBounds :: Pos->Bool
+isInBounds (a,b) = (a<8 && a>=0 && b<8 && b>=0)
+
+getAllOfColor :: Board->Color->[Move]
+getAllOfColor board color = concat [possibleMoves board color (a,b) | a <- [0..7], b<-[0..7]]
+
 
 initialBoard = [[Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn)],
                 [Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing],
