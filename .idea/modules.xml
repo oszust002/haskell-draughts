@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/haskell-draughts.iml" filepath="$PROJECT_DIR$/haskell-draughts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/draughts.iml" filepath="$PROJECT_DIR$/draughts.iml" />
     </modules>
   </component>
 </project>
