@@ -23,9 +23,10 @@ deleteFigure board b = placeFigure board b Nothing
 moveFigure :: Board->Pos->Pos->Board
 moveFigure board b c = placeFigure (deleteFigure board b) c field where field = getField board b
 
-makeJump :: Board->Move->Board
-makeJump board (Jump [x]) = board
-makeJump board (Jump (a:b:xs)) = makeJump (deleteFigure (moveFigure board a b) capturedPos) $ Jump $ b:xs
+makeMove :: Board -> Move -> Board
+makeMove board (SMove from to) = moveFigure board from to
+makeMove board (Jump [x]) = board
+makeMove board (Jump (a:b:xs)) = makeMove (deleteFigure (moveFigure board a b) capturedPos) $ Jump $ b:xs
                 where capturedPos = (x2+signum (x1-x2),y2+signum (y1-y2))
                       (x1,y1) = a
                       (x2,y2) = b
@@ -41,7 +42,6 @@ getPawnMove :: Color -> Pos -> [Move]
 getPawnMove col pos
             | col == White = [SMove pos $ getNeighbour pos NW, SMove pos $ getNeighbour pos NE]
             | col == Black = [SMove pos $ getNeighbour pos SW, SMove pos $ getNeighbour pos SE]
-
 
 getKingMoves :: Pos -> [Move]
 getKingMoves pos = (map (SMove pos) . concatMap (createLine pos 7)) dirs where dirs = [NE,NW,SE,SW]
@@ -84,19 +84,28 @@ getEnemyOnDir board pos col direction step
                   nextCol = getColor $ fromJust nextField
 
 
-getJump :: Color -> Pos -> Board -> [Pos]
+addToEveryList :: a -> [[a]] -> [[a]]
+addToEveryList a [] = [[a]]
+addToEveryList a b = map (a:) b
+
+
+getAllMaxLists :: [[a]]->[[a]]
+getAllMaxLists a = filter (\x -> length x == maxLength) a where maxLength = length $ maximumBy (compare `on` length) a
+
+getJump :: Color -> Pos -> Board -> [[Pos]]
 getJump col pos board = if (color /= col) then [] else longest
-                    where longest = maximumBy (compare `on` length) allJumps
-                          allJumps = map (getJumpList) dirs
+                    where longest = getAllMaxLists allJumps
+                          allJumps = concatMap (getJumpList) dirs
                           dirs = [NE,NW,SE,SW]
                           curField = getField board pos
                           color = getColor $ fromJust curField
-                          getJumpList dir = if (field == Nothing) then [] else nextPos:(getJump col nextPos $ makeJump board $ Jump [pos,nextPos])
+                          getJumpList dir = if (field == Nothing) then [] else addToEveryList nextPos $ getJump col nextPos $ makeMove board $ Jump [pos,nextPos]
                                       where nextPos = getNextInDir enemyPos dir
                                             (enemyPos,field) = getEnemyOnDir board pos col dir maxLength
                                             maxLength = if (isKing curField) then 7 else 0
+
 getAllJumps :: Color -> Board -> [Move]
-getAllJumps col board = [Jump ((a,b):(getJump col (a,b) board))| a<-[0..7], b<-[0..7], getField board (a,b) /= Nothing]
+getAllJumps col board = ((map (Jump)) . concat) [(addToEveryList (a,b) (getJump col (a,b) board))| a<-[0..7], b<-[0..7], getField board (a,b) /= Nothing]
 
 notEmptyJump :: Move -> Bool
 notEmptyJump (Jump []) = False

@@ -7,3 +7,24 @@
   (major1) == 4 && (major2) <  6 || \
   (major1) == 4 && (major2) == 6 && (minor) <= 0)
 
+/* package parsec-3.1.11 */
+#define VERSION_parsec "3.1.11"
+#define MIN_VERSION_parsec(major1,major2,minor) (\
+  (major1) <  3 || \
+  (major1) == 3 && (major2) <  1 || \
+  (major1) == 3 && (major2) == 1 && (minor) <= 11)
+
+/* package parsec-numbers-0.1.0 */
+#define VERSION_parsec_numbers "0.1.0"
+#define MIN_VERSION_parsec_numbers(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  1 || \
+  (major1) == 0 && (major2) == 1 && (minor) <= 0)
+
+/* package transformers-0.4.3.0 */
+#define VERSION_transformers "0.4.3.0"
+#define MIN_VERSION_transformers(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  4 || \
+  (major1) == 0 && (major2) == 4 && (minor) <= 3)
+
