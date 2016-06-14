@@ -7,7 +7,6 @@ type Field = Maybe ColoredFigure
 type Board = [[Field]]
 type Pos = (Int, Int)
 
-
 instance Show ColoredFigure where
     show (ColoredFigure White King) = "W "
     show (ColoredFigure Black King) = "B "
@@ -33,7 +32,7 @@ initialBoard = [[Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigu
                 [Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing],
                 [Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
                 [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
-                [Nothing,Nothing,Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing],
+                [Nothing,Nothing,Nothing,Nothing,Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing],
                 [Just(ColoredFigure White King),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing],
                 [Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn)],
                 [Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing]]

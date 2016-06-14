@@ -115,6 +115,14 @@ notEmptyJump (Jump _) = True
 getPossibleJumps :: Color -> Board -> [Move]
 getPossibleJumps col board = filter (notEmptyJump) $ getAllJumps col board
 
+getPermittedMoves :: Color -> Board -> [Move]
+getPermittedMoves col board
+        | length jumps == 0 = moves
+        | otherwise = jumps
+        where jumps = getPossibleJumps col board
+              moves = getPossibleMoves col board
+
+
 trackIsEmpty :: Board -> Move -> Bool
 trackIsEmpty board  (SMove (a,b) (c,d))
                         | (c==a) = True
