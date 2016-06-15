@@ -1,4 +1,5 @@
 module Main where
+import Board
 
-main = print "main"
+main = showBoard initialBoard
 

@@ -22,15 +22,15 @@ rowString (a,b) =show a ++ " " ++ concatMap printField b
 
 
 boardToString :: Board -> String
-boardToString = (unlines . map (rowString ) . zip [0..7])
+boardToString = unlines . map (rowString ) . zip [1..8]
 
 showBoard :: Board -> IO()
-showBoard a = putStr ("  0 1 2 3 4 5 6 7\n" ++ boardToString a)
+showBoard a = putStr ("  1 2 3 4 5 6 7 8\n" ++ boardToString a)
 
 
-initialBoard = [[Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing,Nothing,Just(ColoredFigure Black Pawn)],
+initialBoard = [[Nothing,Just(ColoredFigure Black King),Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Just(ColoredFigure Black King)],
                 [Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing],
-                [Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+                [Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
                 [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
                 [Nothing,Nothing,Nothing,Nothing,Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing],
                 [Just(ColoredFigure White King),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing],
