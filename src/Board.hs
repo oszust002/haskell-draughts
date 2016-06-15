@@ -37,11 +37,11 @@ initBoard = [[Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigu
               [Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing]]
 
 --used only for testing
-testBoard = [[Nothing,Just(ColoredFigure Black King),Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Just(ColoredFigure Black King)],
-                [Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing],
-                [Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
-                [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
-                [Nothing,Nothing,Nothing,Nothing,Nothing,Just(ColoredFigure Black Pawn),Nothing,Nothing],
-                [Just(ColoredFigure White King),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing],
-                [Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn)],
-                [Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing]]
+testBoard = [[Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Nothing,Just (ColoredFigure White King),Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Just (ColoredFigure Black Pawn),Nothing,Nothing,Nothing,Just (ColoredFigure White Pawn),Nothing,Nothing],
+             [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
+             [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing]]

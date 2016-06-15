@@ -5,7 +5,7 @@ import Data.Function (on)
 import Board
 import Utils
 
-data Move = SMove Pos Pos | Jump [Pos] | OneJump Pos Pos deriving Show
+data Move = SMove Pos Pos | Jump [Pos] | OneJump Pos Pos deriving (Show, Eq)
 data Direction = NW | NE | SW | SE deriving Eq
 
 createLine :: Pos -> Int -> Direction ->  [Pos]
@@ -118,7 +118,7 @@ getJump col pos board = if (color /= col) then [] else longest
                           dirs = [NE,NW,SE,SW]
                           curField = getField board pos
                           color = getColor $ fromJust curField
-                          getJumpList dir = if (field == Nothing) then [] else addToEveryList nextPos $ getJump col nextPos $ makeMove board $ Jump [pos,nextPos]
+                          getJumpList dir = if (field == Nothing) then [] else addToEveryList nextPos $ getJump col nextPos $ makeMove board $ OneJump pos nextPos
                                       where nextPos = getNextInDir enemyPos dir
                                             (enemyPos,field) = getEnemyOnDir board pos col dir maxLength
                                             maxLength = if (isKing curField) then 7 else 0

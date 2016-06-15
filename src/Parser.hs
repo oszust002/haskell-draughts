@@ -25,6 +25,14 @@ fromIntToPos a
 fromPosToInt :: Pos -> Int
 fromPosToInt (x,y) = 4*x+(y `div` 2) + 1
 
+movesToPDNString :: [Move] -> String
+movesToPDNString [x] = pdnToString $ moveToPDN x
+movesToPDNString (x:xs) = pdnToString  (moveToPDN x) ++ ", " ++ movesToPDNString xs
+
+pdnToString :: PDN -> String
+pdnToString (Move (a,b)) = show a ++ "-" ++ show b
+pdnToString (Kill [x]) = show x
+pdnToString (Kill (x:xs)) = show x ++ "x" ++ (pdnToString $ Kill xs)
 
 pdnToMove :: PDN -> Move
 pdnToMove (Move (a,b)) = SMove (fromIntToPos a) $ fromIntToPos b
@@ -32,7 +40,7 @@ pdnToMove (Kill x) = Jump $ map (fromIntToPos) x
 
 moveToPDN :: Move -> PDN
 moveToPDN (SMove a b) = Move (fromPosToInt a, fromPosToInt b)
-moveToPdn (Jump x) = Kill $ map (fromPosToInt) x
+moveToPDN (Jump x) = Kill $ map (fromPosToInt) x
 
 parsePos :: Parser Int
 parsePos = do

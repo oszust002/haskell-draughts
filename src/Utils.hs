@@ -31,3 +31,4 @@ getReverseColor :: Color -> Color
 getReverseColor color
             | color == White = Black
             | color == Black = White
+

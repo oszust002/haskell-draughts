@@ -48,3 +48,7 @@ minimizeTree color (Node a x) = (value, a)
 
 minmaxBoard :: Color -> Forest GameInfo -> (Int, GameInfo)
 minmaxBoard color forest = maximumBy (ordByFirst) $ map (minimizeTree color) forest
+
+getTheBestMove :: Color -> Board -> Int -> Move
+getTheBestMove col board depth = move
+                        where (_,(_,move,_)) = minmaxBoard col $ getNFromForest depth $ generateForest col board
