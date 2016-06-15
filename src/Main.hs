@@ -28,10 +28,8 @@ playAutoPlay color board = if (isWinner reverseColor board)
                                     showBoard board
                                     putStrLn $ pdnToString $ moveToPDN bestMove
                                     play reverseColor (makeMove board bestMove)
-                           where bestMove = getTheBestMove color board 5
+                           where bestMove = getTheBestMove color board 7
                                  reverseColor = getReverseColor color
-
-main = play White initBoard
 
 countFigs :: Color -> Board -> Int
 countFigs color board =foldl (+) 0 $ map (length) $ map (filter (\x -> (not (isNothing x)) && ((getColor (fromJust x)) == color) )) board
@@ -44,8 +42,4 @@ isWinner color board
          where reverseColor = getReverseColor color
                permMoves = getPermittedMoves reverseColor board
 
-
-
-
-
-
+main = play White initBoard
