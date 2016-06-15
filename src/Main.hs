@@ -1,5 +1,6 @@
 module Main where
 import Board
 
-main = showBoard initialBoard
+
+main = showBoard initBoard
 

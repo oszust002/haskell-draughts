@@ -5,7 +5,7 @@ import Data.Function (on)
 import Board
 import Utils
 
-data Move = SMove Pos Pos | Jump [Pos] deriving Show
+data Move = SMove Pos Pos | Jump [Pos] | OneJump Pos Pos deriving Show
 data Direction = NW | NE | SW | SE deriving Eq
 
 createLine :: Pos -> Int -> Direction ->  [Pos]
@@ -35,7 +35,16 @@ moveFigure board b c prom = placeFigure (deleteFigure board b) c field
 makeMove :: Board -> Move -> Board
 makeMove board (SMove from to) = moveFigure board from to True
 makeMove board (Jump [x]) = board
-makeMove board (Jump [x,y]) = moveFigure board x y True
+makeMove board (OneJump x y) = deleteFigure (moveFigure board x y True) capturedPos
+                where capturedPos = (x2+signum (x1-x2),y2+signum (y1-y2))
+                      (x1,y1) = x
+                      (x2,y2) = y
+
+makeMove board (Jump [x,y]) = deleteFigure (moveFigure board x y True) capturedPos
+                where capturedPos = (x2+signum (x1-x2),y2+signum (y1-y2))
+                      (x1,y1) = x
+                      (x2,y2) = y
+
 makeMove board (Jump (a:b:xs)) = makeMove (deleteFigure (moveFigure board a b False) capturedPos) $ Jump $ b:xs
                 where capturedPos = (x2+signum (x1-x2),y2+signum (y1-y2))
                       (x1,y1) = a

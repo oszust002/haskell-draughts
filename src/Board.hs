@@ -27,8 +27,17 @@ boardToString = unlines . map (rowString ) . zip [1..8]
 showBoard :: Board -> IO()
 showBoard a = putStr ("  1 2 3 4 5 6 7 8\n" ++ boardToString a)
 
+initBoard = [[Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn)],
+              [Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing],
+              [Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn), Nothing, Just(ColoredFigure Black Pawn)],
+              [Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing],
+              [Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing],
+              [Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing],
+              [Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn)],
+              [Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing,Just(ColoredFigure White Pawn),Nothing]]
 
-initialBoard = [[Nothing,Just(ColoredFigure Black King),Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Just(ColoredFigure Black King)],
+--used only for testing
+testBoard = [[Nothing,Just(ColoredFigure Black King),Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Just(ColoredFigure Black King)],
                 [Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing,Just(ColoredFigure Black Pawn),Nothing],
                 [Nothing,Just(ColoredFigure Black King),Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
                 [Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing,Nothing],
