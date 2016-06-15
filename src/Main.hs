@@ -1,4 +1,5 @@
 module Main where
+import System.Environment
 import Data.Maybe
 import Moves
 import Board
@@ -42,4 +43,13 @@ isWinner color board
          where reverseColor = getReverseColor color
                permMoves = getPermittedMoves reverseColor board
 
-main = play White initBoard
+main = do
+       args <- getArgs
+       if (length args == 0)
+            then putStrLn "Put argument!"
+            else do
+                 color <- return (args!!0)
+                 case color of
+                      "black" -> playAutoPlay White initBoard
+                      "white" -> play White initBoard
+                      otherwise -> putStrLn "Wrong argument! Try 'black' or 'white'"
