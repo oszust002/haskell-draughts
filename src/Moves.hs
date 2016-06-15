@@ -20,13 +20,23 @@ placeFigure board (b,c) newField = replaceNth b (replaceNth c newField list) boa
 deleteFigure :: Board -> Pos -> Board
 deleteFigure board b = placeFigure board b Nothing
 
-moveFigure :: Board->Pos->Pos->Board
-moveFigure board b c = placeFigure (deleteFigure board b) c field where field = getField board b
+checkPromotion :: Pos -> Color -> Bool
+checkPromotion (a,b) White = a == 0
+checkPromotion (a,b) Black = a == 7
+
+
+moveFigure :: Board->Pos->Pos -> Bool -> Board
+moveFigure board b c prom = placeFigure (deleteFigure board b) c field
+                            where field
+                                    | prom == False = getField board b
+                                    | prom == True = if (checkPromotion c color) == True then Just (ColoredFigure color King) else getField board b
+                                  color = getColor $ fromJust $ getField board b
 
 makeMove :: Board -> Move -> Board
-makeMove board (SMove from to) = moveFigure board from to
+makeMove board (SMove from to) = moveFigure board from to True
 makeMove board (Jump [x]) = board
-makeMove board (Jump (a:b:xs)) = makeMove (deleteFigure (moveFigure board a b) capturedPos) $ Jump $ b:xs
+makeMove board (Jump [x,y]) = moveFigure board x y True
+makeMove board (Jump (a:b:xs)) = makeMove (deleteFigure (moveFigure board a b False) capturedPos) $ Jump $ b:xs
                 where capturedPos = (x2+signum (x1-x2),y2+signum (y1-y2))
                       (x1,y1) = a
                       (x2,y2) = b
